@@ -4,6 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>XO Win - Play & Earn</title>
+
+<!-- ══════════════════════════════════════
+     MONETAG SDK — Zone: 11129165
+     Rewarded Interstitial + Popup + InApp
+     ══════════════════════════════════════ -->
+<script src='//libtl.com/sdk.js' data-zone='11129165' data-sdk='show_11129165'></script>
+
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
 :root{
@@ -43,6 +50,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);font-famil
 .btn:active{transform:scale(.96);}
 .btn-gold{background:linear-gradient(135deg,#f5c518,#ff8c00);color:#000;padding:14px 24px;font-size:16px;width:100%;}
 .btn-green{background:linear-gradient(135deg,#2ecc71,#27ae60);color:#fff;padding:14px 24px;font-size:16px;width:100%;}
+.btn-blue{background:linear-gradient(135deg,#3a9de0,#1a6bbf);color:#fff;padding:12px 20px;font-size:14px;width:100%;}
 
 /* HOME */
 .welcome{margin:12px 16px 0;background:linear-gradient(135deg,#1e1e52,#2d1b69);border:1px solid var(--border);border-radius:16px;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;}
@@ -58,6 +66,10 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);font-famil
 .inv-ban{margin:0 16px 12px;background:linear-gradient(135deg,#2d1b69,#1a4d2e);border:1px solid var(--border);border-radius:16px;padding:14px;display:flex;align-items:center;gap:10px;}
 .stag{display:flex;justify-content:space-between;padding:0 16px 16px;gap:8px;}
 .stag div{flex:1;text-align:center;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:10px 4px;}
+
+/* AD BANNER — Home screen */
+.ad-banner-home{margin:0 16px 12px;background:linear-gradient(135deg,#1a1a3e,#0a0a1f);border:1px dashed rgba(245,197,24,.3);border-radius:14px;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;min-height:56px;}
+.ad-banner-home span{font-size:11px;color:var(--text2);}
 
 /* MATCH SCREEN */
 #matchScreen{background:var(--bg);}
@@ -167,7 +179,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);font-famil
 .rcard{background:var(--bg2);border:2px solid var(--gold);border-radius:24px;padding:30px 22px;text-align:center;max-width:310px;width:90%;animation:cardpop .4s cubic-bezier(.34,1.56,.64,1);}
 @keyframes cardpop{from{transform:scale(.5);opacity:0}to{transform:scale(1);opacity:1}}
 
-/* AD OVERLAY */
+/* FAKE AD OVERLAY — fallback only */
 .ad-ov{display:none;position:fixed;inset:0;background:#000;z-index:150;flex-direction:column;align-items:center;justify-content:center;gap:18px;}
 .ad-ov.show{display:flex;}
 .advid{width:90%;max-width:340px;aspect-ratio:16/9;background:#111;border-radius:14px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;}
@@ -184,6 +196,10 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);font-famil
 .mi{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:13px 15px;margin-bottom:10px;cursor:pointer;}
 .mi:active{transform:scale(.98);}
 .stitle{font-size:13px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px;padding:0 16px;}
+
+/* IN-APP AD INDICATOR */
+.inapp-badge{position:fixed;bottom:90px;right:14px;background:var(--card);border:1px solid var(--gold);border-radius:10px;padding:5px 10px;font-size:10px;color:var(--gold);font-weight:700;z-index:50;opacity:0;transition:.3s;pointer-events:none;}
+.inapp-badge.show{opacity:1;}
 
 /* XO BOT THINKING */
 @keyframes think{0%,100%{opacity:.3}50%{opacity:1}}
@@ -210,6 +226,16 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);font-famil
       <div><h2 style="font-size:18px;font-weight:900;">Welcome! 👋</h2><p style="font-size:12px;color:var(--text2);">Play X & O, Win Real Money</p></div>
       <span style="font-size:36px;">🏆</span>
     </div>
+
+    <!-- ── MONETAG: In-App Interstitial (auto, every 2 pages) ── -->
+    <div class="ad-banner-home" onclick="triggerRewardedPopup()">
+      <div>
+        <div style="font-size:13px;font-weight:800;">🎁 Watch Ad — Earn ₹5 Free!</div>
+        <div style="font-size:11px;color:var(--text2);margin-top:2px;">Tap to watch a short ad</div>
+      </div>
+      <div style="background:var(--gold);border-radius:8px;padding:6px 12px;font-size:12px;font-weight:900;color:#000;">EARN</div>
+    </div>
+
     <div class="gc-grid">
       <div class="gc gc-blue" onclick="openBet('bot')">
         <div style="font-size:11px;color:var(--text2);font-weight:700;">PLAY VS</div>
@@ -258,8 +284,6 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);font-famil
     <div style="font-size:15px;font-weight:900;">X & O MATCH</div>
     <div class="pot"><small>Pot</small><b>₹<span id="potAmt">20</span></b></div>
   </div>
-
-  <!-- Players row -->
   <div class="prow">
     <div class="pi">
       <div class="av x-av">😊</div>
@@ -277,20 +301,14 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);font-famil
       </div>
     </div>
   </div>
-
-  <!-- Score row -->
   <div class="score-row">
     <div class="score-box x-box"><div class="sv" id="xWins">0</div><div class="sl">You (X)</div></div>
     <div class="score-box tie-box"><div class="sv" id="tieCount">0</div><div class="sl">Draws</div></div>
     <div class="score-box o-box"><div class="sv" id="oWins">0</div><div class="sl">Bot (O)</div></div>
   </div>
-
-  <!-- Status -->
   <div class="status-bar" id="statusBar">
     <div class="turn-indicator"><span id="turnSym" style="font-size:20px;">✕</span><span id="turnTxt" style="font-size:13px;font-weight:800;">Your turn</span></div>
   </div>
-
-  <!-- Board -->
   <div class="board-wrap">
     <div class="xo-board" id="xoBoard">
       <div class="xo-cell" onclick="playerMove(0)" id="c0"></div>
@@ -304,13 +322,9 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);font-famil
       <div class="xo-cell" onclick="playerMove(8)" id="c8"></div>
     </div>
   </div>
-
-  <!-- New round btn -->
   <div style="padding:10px 16px;flex-shrink:0;">
     <button class="btn btn-gold" id="newRoundBtn" onclick="newRound()" style="display:none;">NEXT ROUND ›</button>
   </div>
-
-  <!-- Finding overlay -->
   <div class="find-ov gone" id="findOv">
     <div class="find-spin"></div>
     <div style="font-size:16px;font-weight:800;">Finding opponent...</div>
@@ -334,6 +348,8 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);font-famil
       <div class="mission" id="ms2"><span style="font-size:26px;">📺</span><div style="flex:1;"><div style="font-size:13px;font-weight:800;">Watch 3 Ads</div><div style="font-size:11px;color:var(--text2);" id="mp2">0/3</div></div><div style="font-size:13px;font-weight:900;color:var(--gold);">+₹10</div></div>
       <div class="mission" id="ms3"><span style="font-size:26px;">🎡</span><div style="flex:1;"><div style="font-size:13px;font-weight:800;">Spin the Wheel</div><div style="font-size:11px;color:var(--text2);" id="mp3">0/1</div></div><div style="font-size:13px;font-weight:900;color:var(--gold);">+₹5</div></div>
     </div>
+
+    <!-- ── MONETAG: Rewarded Interstitial (main ad section) ── -->
     <div style="padding:12px 16px 8px;font-size:15px;font-weight:900;">📺 Watch Ads & Earn ₹5</div>
     <div class="earn-hero">
       <div><h2 style="font-size:16px;font-weight:900;">Watch Ads & Earn</h2><p style="font-size:12px;color:rgba(255,255,255,.7);">Earn ₹5 per Ad — Up to ₹250/day</p></div>
@@ -344,6 +360,12 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);font-famil
       <div class="pb"><div class="pf" id="aProg" style="width:100%;"></div></div>
     </div>
     <div id="adsList" style="margin-top:10px;"></div>
+
+    <!-- ── MONETAG: Rewarded Popup button ── -->
+    <div style="padding:0 16px 10px;">
+      <button class="btn btn-blue" onclick="triggerRewardedPopup()">🎁 Watch Bonus Ad — Extra ₹5</button>
+    </div>
+
     <div style="margin:0 16px 8px;background:rgba(245,197,24,.07);border:1px solid rgba(245,197,24,.2);border-radius:12px;padding:12px 16px;display:flex;align-items:center;gap:10px;">
       <span style="font-size:20px;">🏆</span>
       <span style="font-size:12px;">Watch all ads daily and earn up to <strong>₹250</strong> everyday!</span>
@@ -374,7 +396,9 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);font-famil
       <div style="width:8px;height:8px;background:var(--green);border-radius:50%;" id="spDot"></div>
       <span style="font-size:13px;color:var(--text2);font-weight:600;" id="spTxt">1 Spin Available</span>
     </div>
-    <button class="btn btn-gold" style="width:260px;font-size:18px;padding:15px;" id="spinBtn" onclick="doSpin()">SPIN NOW</button>
+    <!-- Spin requires watching a Rewarded Interstitial ad first -->
+    <button class="btn btn-gold" style="width:260px;font-size:18px;padding:15px;" id="spinBtn" onclick="spinWithAd()">SPIN NOW 🎬</button>
+    <p style="font-size:11px;color:var(--text2);margin-top:8px;">Watch a short ad to spin</p>
   </div>
   <div class="bnav">
     <div class="ni" onclick="nav('homeScreen','home')"><svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg><span>Home</span></div>
@@ -482,12 +506,14 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);font-famil
     <div style="font-size:24px;font-weight:900;margin-bottom:6px;" id="resT">You Won!</div>
     <div style="font-size:34px;font-weight:900;color:var(--gold);margin-bottom:6px;" id="resA">+₹18</div>
     <div style="font-size:13px;color:var(--text2);margin-bottom:22px;" id="resS">Amount added to wallet</div>
+    <!-- After result — show rewarded popup for next game bonus -->
     <button class="btn btn-gold" onclick="playAgain()" style="margin-bottom:10px;">PLAY AGAIN</button>
-    <button class="btn" style="background:var(--card);color:var(--text2);width:100%;padding:12px;" onclick="goHome()">Go Home</button>
+    <button class="btn" style="background:var(--card);color:var(--text2);width:100%;padding:12px;margin-bottom:10px;" onclick="goHome()">Go Home</button>
+    <button class="btn btn-blue" onclick="triggerRewardedPopup()" style="font-size:13px;padding:11px;">🎁 Watch Ad — Earn ₹5 Bonus</button>
   </div>
 </div>
 
-<!-- AD OVERLAY -->
+<!-- Fallback Ad Overlay (only if Monetag SDK fails) -->
 <div class="ad-ov" id="adOv">
   <div style="width:100%;padding:10px 16px;display:flex;justify-content:flex-end;"><span style="font-size:12px;color:#666;">Sponsored</span></div>
   <div class="advid">
@@ -506,12 +532,158 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);font-famil
   <div style="font-size:14px;color:#888;">Earn ₹5 for watching this ad</div>
 </div>
 
+<!-- In-App Ad Badge -->
+<div class="inapp-badge" id="inappBadge">📺 Ad</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
-// ═══════════════════════════════════════
+// ═══════════════════════════════════════════════════════
+//  MONETAG SDK WRAPPER
+//  Zone: 11129165
+//  3 formats:
+//    1. Rewarded Interstitial  → watchAd()
+//    2. Rewarded Popup         → triggerRewardedPopup()
+//    3. In-App Interstitial    → auto (called on nav)
+// ═══════════════════════════════════════════════════════
+
+// Helper: wait for SDK to load
+function sdkReady(){
+  return typeof show_11129165 === 'function';
+}
+
+// ── FORMAT 1: REWARDED INTERSTITIAL ──────────────────
+// Used in: Earn screen "Watch Ad" buttons
+// User watches full ad → gets ₹5 reward
+function watchAd(){
+  chkDay();
+  if(S.adsToday >= MAX_ADS){ toast('No more ads available today!'); return; }
+
+  if(sdkReady()){
+    show_11129165()
+      .then(function(){
+        // Ad watched successfully — reward user
+        onAdWatched();
+      })
+      .catch(function(e){
+        // SDK error or no fill — use fallback
+        console.log('Monetag interstitial error:', e);
+        fallbackAd();
+      });
+  } else {
+    // SDK not loaded yet — use fallback
+    fallbackAd();
+  }
+}
+
+// ── FORMAT 2: REWARDED POPUP ──────────────────────────
+// Used in: Earn screen bonus button, Home banner, Result screen
+// User watches or closes popup → reward on complete
+function triggerRewardedPopup(){
+  if(sdkReady()){
+    show_11129165('pop')
+      .then(function(){
+        // User watched popup ad completely — reward
+        onAdWatched();
+      })
+      .catch(function(e){
+        // User closed early or error — no reward, that's fine
+        toast('Watch the full ad to earn ₹5!');
+      });
+  } else {
+    fallbackAd();
+  }
+}
+
+// ── FORMAT 3: IN-APP INTERSTITIAL ─────────────────────
+// Auto-shows: every 2 page navigations, with 30s intervals
+// No user reward needed — just runs automatically
+var inAppStarted = false;
+function startInAppAds(){
+  if(inAppStarted || !sdkReady()) return;
+  inAppStarted = true;
+  show_11129165({
+    type: 'inApp',
+    inAppSettings: {
+      frequency: 2,    // show 2 ads per session cap
+      capping: 0.1,    // within 0.1 hours (6 min)
+      interval: 30,    // 30 sec between ads
+      timeout: 5,      // 5 sec delay before first
+      everyPage: false // session not reset on page change
+    }
+  });
+  // Show badge briefly when in-app ad triggers
+  var badge = document.getElementById('inappBadge');
+  if(badge){ badge.classList.add('show'); setTimeout(function(){ badge.classList.remove('show'); }, 2000); }
+}
+
+// Wait for SDK then start in-app ads
+window.addEventListener('load', function(){
+  setTimeout(function(){
+    if(sdkReady()) startInAppAds();
+    else {
+      // Retry after 3s
+      setTimeout(function(){ if(sdkReady()) startInAppAds(); }, 3000);
+    }
+  }, 2000);
+});
+
+// ── REWARD FUNCTION — called after successful ad ──────
+function onAdWatched(){
+  S.adsToday++;
+  S.balance += 5;
+  S.totalEarned += 5;
+  if(S.missions.m2 < 3) S.missions.m2++;
+  addTxn('Ad Reward', 5, 'in');
+  save(); updBals();
+  snd('coin');
+  toast('₹5 added to wallet!');
+  refEarn();
+}
+
+// ── FALLBACK AD — if SDK not available ───────────────
+function fallbackAd(){
+  var ov = document.getElementById('adOv');
+  ov.classList.add('show');
+  var s = 5;
+  document.getElementById('adCnt').textContent = s;
+  document.getElementById('adFill').style.width = '0%';
+  var iv = setInterval(function(){
+    s--;
+    document.getElementById('adCnt').textContent = s;
+    document.getElementById('adFill').style.width = ((5-s)/5*100) + '%';
+    if(s <= 0){
+      clearInterval(iv);
+      ov.classList.remove('show');
+      onAdWatched();
+    }
+  }, 1000);
+}
+
+// ── SPIN WITH AD — Spin requires watching ad first ───
+function spinWithAd(){
+  var today = new Date().toDateString();
+  if(S.lastSpin === today){ toast('Already spun today! Come back tomorrow.'); return; }
+  if(spinning) return;
+
+  if(sdkReady()){
+    show_11129165()
+      .then(function(){
+        // Ad watched — now let them spin
+        doSpin();
+      })
+      .catch(function(e){
+        // Error — allow spin anyway (better UX)
+        doSpin();
+      });
+  } else {
+    doSpin(); // fallback: spin without ad
+  }
+}
+
+// ═══════════════════════════════════════════════════════
 //  STATE  (persisted in localStorage)
-// ═══════════════════════════════════════
+// ═══════════════════════════════════════════════════════
 var DEF = {
   balance:0, totalEarned:0, gamesPlayed:0, wins:0, losses:0,
   lastSpin:null, streakDay:0, streakLastClaim:null,
@@ -536,7 +708,6 @@ function addTxn(label,amount,type){
   if(S.txns.length>100) S.txns=S.txns.slice(-100);
 }
 
-// Signup bonus
 if(S.isNew){ S.balance=100; S.isNew=false; addTxn('Signup Bonus',100,'in'); save(); }
 
 function chkDay(){
@@ -547,6 +718,8 @@ function chkDay(){
 }
 chkDay();
 
+var MAX_ADS = 50;
+
 // ═══════════════════════════════════════
 //  AUDIO
 // ═══════════════════════════════════════
@@ -554,7 +727,7 @@ var AC;
 function getAC(){ if(!AC) AC=new(window.AudioContext||window.webkitAudioContext)(); return AC; }
 function snd(type){
   try{
-    var c=getAC(), o=c.createOscillator(), g=c.createGain();
+    var c=getAC(),o=c.createOscillator(),g=c.createGain();
     o.connect(g); g.connect(c.destination);
     if(type==='place'){
       o.type='sine'; o.frequency.value=600;
@@ -603,25 +776,22 @@ function nav(id, key){
 
 function updBals(){
   var b=S.balance.toFixed(2);
-  var ids=['hBal','eBal','spBal','wBal','prBal'];
-  for(var i=0;i<ids.length;i++){
-    var el=document.getElementById(ids[i]);
-    if(el) el.textContent=b;
-  }
+  ['hBal','eBal','spBal','wBal','prBal'].forEach(function(id){
+    var el=document.getElementById(id); if(el) el.textContent=b;
+  });
   var wb=document.getElementById('wBig'); if(wb) wb.textContent=S.balance.toFixed(2);
   var wp=document.getElementById('wProg');
   if(wp){
     var n=Math.max(0,1000-S.balance);
-    wp.textContent = n<=0 ? 'Ready to withdraw!' : 'Need '+n.toFixed(0)+' more to withdraw';
+    wp.textContent=n<=0?'Ready to withdraw!':'Need ₹'+n.toFixed(0)+' more to withdraw';
   }
 }
 
 function showSec(id){
-  var secs=['wdSec','txSec'];
-  for(var i=0;i<secs.length;i++){
-    var el=document.getElementById(secs[i]);
-    if(el) el.style.display=(secs[i]===id)?'block':'none';
-  }
+  ['wdSec','txSec'].forEach(function(s){
+    var el=document.getElementById(s);
+    if(el) el.style.display=(s===id)?'block':'none';
+  });
   if(id==='txSec') renderTxns();
 }
 
@@ -641,18 +811,16 @@ var betAmt=10, gameMode='bot';
 
 function openBet(mode){
   gameMode=mode; betAmt=10;
-  document.getElementById('bmTitle').textContent = mode==='bot' ? 'Play vs Bot' : 'Play Online';
-  var bbets=document.querySelectorAll('.bbet');
-  for(var i=0;i<bbets.length;i++) bbets[i].classList.remove('sel');
-  bbets[1].classList.add('sel');
+  document.getElementById('bmTitle').textContent=mode==='bot'?'Play vs Bot':'Play Online';
+  document.querySelectorAll('.bbet').forEach(function(b){ b.classList.remove('sel'); });
+  document.querySelectorAll('.bbet')[1].classList.add('sel');
   document.getElementById('winAmt').textContent=''+Math.floor(10*1.8);
   document.getElementById('betModal').classList.add('show');
 }
 
 function selBet(v,el){
   betAmt=v;
-  var bbets=document.querySelectorAll('.bbet');
-  for(var i=0;i<bbets.length;i++) bbets[i].classList.remove('sel');
+  document.querySelectorAll('.bbet').forEach(function(b){ b.classList.remove('sel'); });
   el.classList.add('sel');
   document.getElementById('winAmt').textContent=''+Math.floor(v*1.8);
 }
@@ -660,26 +828,22 @@ function selBet(v,el){
 // ═══════════════════════════════════════
 //  X O  GAME
 // ═══════════════════════════════════════
-var board = ['','','','','','','','',''];
-var gameActive = false;
-var playerTurn = true; // true=X(player), false=O(bot)
+var board=['','','','','','','','',''];
+var gameActive=false, playerTurn=true;
 var roundXW=0, roundOW=0, roundTie=0;
 var WINS=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
-var matchRound=0, matchWon=false;
-var botTimeout=null;
+var matchRound=0, botTimeout=null;
 
 function startGame(){
   if(S.balance<betAmt){ toast('Insufficient balance!'); return; }
   closeModal();
   S.balance-=betAmt; S.gamesPlayed++; S.missions.m1=true; save(); updBals();
-  // Set opponent name
   var names=['Rahul_'+Math.floor(Math.random()*9000+1000),'Ankit_'+Math.floor(Math.random()*9000+1000),'Priya_'+Math.floor(Math.random()*9000+1000)];
-  document.getElementById('oppName').textContent = gameMode==='bot' ? 'Bot AI' : names[0];
+  document.getElementById('oppName').textContent=gameMode==='bot'?'Bot AI':names[0];
   document.getElementById('potAmt').textContent=Math.floor(betAmt*2);
-  roundXW=0; roundOW=0; roundTie=0; matchRound=0; matchWon=false;
+  roundXW=0; roundOW=0; roundTie=0; matchRound=0;
   updateScores();
   nav('matchScreen','match');
-  // Show finding overlay for online
   if(gameMode==='online'){
     document.getElementById('findOv').classList.remove('gone');
     var s=5; document.getElementById('findCnt').textContent=s;
@@ -687,48 +851,35 @@ function startGame(){
       s--; document.getElementById('findCnt').textContent=s;
       if(s<=0){ clearInterval(iv); document.getElementById('findOv').classList.add('gone'); newRound(); }
     },1000);
-  } else {
-    newRound();
-  }
+  } else { newRound(); }
 }
 
 function newRound(){
   board=['','','','','','','','',''];
-  gameActive=true;
-  playerTurn=true;
-  matchRound++;
+  gameActive=true; playerTurn=true; matchRound++;
   document.getElementById('newRoundBtn').style.display='none';
-  renderBoard();
-  setStatus('x','Your turn');
+  renderBoard(); setStatus('x','Your turn');
 }
 
 function renderBoard(){
   for(var i=0;i<9;i++){
     var cell=document.getElementById('c'+i);
-    cell.className='xo-cell';
-    cell.innerHTML='';
-    if(board[i]==='X'){
-      cell.classList.add('taken','x-cell');
-      cell.innerHTML='<span class="xo-sym x-sym">✕</span>';
-    } else if(board[i]==='O'){
-      cell.classList.add('taken','o-cell');
-      cell.innerHTML='<span class="xo-sym o-sym">◯</span>';
-    }
+    cell.className='xo-cell'; cell.innerHTML='';
+    if(board[i]==='X'){ cell.classList.add('taken','x-cell'); cell.innerHTML='<span class="xo-sym x-sym">✕</span>'; }
+    else if(board[i]==='O'){ cell.classList.add('taken','o-cell'); cell.innerHTML='<span class="xo-sym o-sym">◯</span>'; }
   }
 }
 
-function setStatus(sym, txt){
-  document.getElementById('turnSym').textContent = sym==='x' ? '✕' : '◯';
-  document.getElementById('turnSym').className = sym==='x' ? 'x-sym' : 'o-sym';
-  document.getElementById('turnTxt').textContent = txt;
+function setStatus(sym,txt){
+  document.getElementById('turnSym').textContent=sym==='x'?'✕':'◯';
+  document.getElementById('turnSym').className=sym==='x'?'x-sym':'o-sym';
+  document.getElementById('turnTxt').textContent=txt;
 }
 
 function setThinking(){
   document.getElementById('statusBar').innerHTML=
     '<div class="turn-indicator"><span style="font-size:14px;color:var(--text2);">Bot thinking</span>'+
-    '<div style="display:flex;gap:4px;margin-left:4px;">'+
-    '<div class="thinking-dot"></div><div class="thinking-dot"></div><div class="thinking-dot"></div>'+
-    '</div></div>';
+    '<div style="display:flex;gap:4px;margin-left:4px;"><div class="thinking-dot"></div><div class="thinking-dot"></div><div class="thinking-dot"></div></div></div>';
 }
 
 function restoreStatus(){
@@ -738,94 +889,58 @@ function restoreStatus(){
 }
 
 function playerMove(idx){
-  if(!gameActive || !playerTurn || board[idx]!=='') return;
-  board[idx]='X';
-  snd('place');
-  renderBoard();
+  if(!gameActive||!playerTurn||board[idx]!=='') return;
+  board[idx]='X'; snd('place'); renderBoard();
   var w=checkWinner();
   if(w){ endRound(w); return; }
   if(isDraw()){ endRound('draw'); return; }
-  playerTurn=false;
-  setThinking();
-  var delay=600+Math.random()*600;
-  botTimeout=setTimeout(botMove, delay);
+  playerTurn=false; setThinking();
+  botTimeout=setTimeout(botMove, 600+Math.random()*600);
 }
 
 function botMove(){
-  restoreStatus();
-  if(!gameActive) return;
-  var move=getBotMove();
-  board[move]='O';
-  snd('place');
-  renderBoard();
+  restoreStatus(); if(!gameActive) return;
+  board[getBotMove()]='O'; snd('place'); renderBoard();
   var w=checkWinner();
   if(w){ endRound(w); return; }
   if(isDraw()){ endRound('draw'); return; }
-  playerTurn=true;
-  setStatus('x','Your turn');
+  playerTurn=true; setStatus('x','Your turn');
 }
 
-// Smart bot: uses minimax-lite with rigged 40% player win chance
 function getBotMove(){
-  // Rigged: decide now if player should win this round
-  // Player wins ~40% — pattern: after 2 consecutive player wins, bot wins
-  var playerShouldWin = shouldPlayerWin();
-
-  if(!playerShouldWin){
-    // Bot plays optimally (tries to win or block)
-    // Check if bot can win
+  if(!shouldPlayerWin()){
     var bw=findWinMove('O'); if(bw!==-1) return bw;
-    // Block player
     var pw=findWinMove('X'); if(pw!==-1) return pw;
-    // Take center
     if(board[4]==='') return 4;
-    // Take corner
-    var corners=[0,2,6,8];
-    for(var i=0;i<corners.length;i++) if(board[corners[i]]==='') return corners[i];
-    // Any empty
+    var corners=[0,2,6,8]; for(var i=0;i<corners.length;i++) if(board[corners[i]]==='') return corners[i];
     return firstEmpty();
-  } else {
-    // Bot plays badly (lets player win) — take random non-winning move
-    var bad=getBadMove();
-    return bad;
-  }
+  } else { return getBadMove(); }
 }
 
 function shouldPlayerWin(){
-  var ws=S.winStreak||0;
-  // Force lose if balance near 1000
   if(S.balance+(betAmt*1.8)>=950) return false;
-  // Win pattern: max 2 wins in a row
-  if(ws>=2) return false;
+  if((S.winStreak||0)>=2) return false;
   return Math.random()<0.40;
 }
 
 function findWinMove(p){
   for(var i=0;i<WINS.length;i++){
     var a=WINS[i][0],b=WINS[i][1],c=WINS[i][2];
-    if(board[a]===p && board[b]===p && board[c]==='') return c;
-    if(board[a]===p && board[c]===p && board[b]==='') return b;
-    if(board[b]===p && board[c]===p && board[a]==='') return a;
+    if(board[a]===p&&board[b]===p&&board[c]==='') return c;
+    if(board[a]===p&&board[c]===p&&board[b]==='') return b;
+    if(board[b]===p&&board[c]===p&&board[a]==='') return a;
   }
   return -1;
 }
 
 function getBadMove(){
-  // Avoid blocking player wins, avoid creating own wins
   var empty=[];
   for(var i=0;i<9;i++) if(board[i]==='') empty.push(i);
-  // Shuffle empty
-  for(var i=empty.length-1;i>0;i--){
-    var j=Math.floor(Math.random()*(i+1));
-    var tmp=empty[i]; empty[i]=empty[j]; empty[j]=tmp;
-  }
-  // Return a spot that doesn't make bot win
+  for(var i=empty.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var tmp=empty[i]; empty[i]=empty[j]; empty[j]=tmp; }
   for(var i=0;i<empty.length;i++){
     board[empty[i]]='O';
     var wins=false;
-    for(var j=0;j<WINS.length;j++){
-      if(board[WINS[j][0]]==='O'&&board[WINS[j][1]]==='O'&&board[WINS[j][2]]==='O'){ wins=true; break; }
-    }
+    for(var j=0;j<WINS.length;j++){ if(board[WINS[j][0]]==='O'&&board[WINS[j][1]]==='O'&&board[WINS[j][2]]==='O'){ wins=true; break; } }
     board[empty[i]]='';
     if(!wins) return empty[i];
   }
@@ -844,36 +959,16 @@ function checkWinner(){
 
 function isDraw(){ for(var i=0;i<9;i++) if(board[i]==='') return false; return true; }
 
-function highlightWin(line){
-  for(var i=0;i<line.length;i++) document.getElementById('c'+line[i]).classList.add('win-cell');
-}
+function highlightWin(line){ for(var i=0;i<line.length;i++) document.getElementById('c'+line[i]).classList.add('win-cell'); }
 
 function endRound(result){
-  gameActive=false;
-  if(botTimeout) clearTimeout(botTimeout);
-
-  if(result && result.winner==='X'){
-    roundXW++;
-    snd('win');
-    highlightWin(result.line);
-    setStatus('x','You win this round!');
-  } else if(result && result.winner==='O'){
-    roundOW++;
-    snd('lose');
-    highlightWin(result.line);
-    setStatus('o','Bot wins this round!');
-  } else {
-    roundTie++;
-    setStatus('x','Draw!');
-  }
+  gameActive=false; if(botTimeout) clearTimeout(botTimeout);
+  if(result&&result.winner==='X'){ roundXW++; snd('win'); highlightWin(result.line); setStatus('x','You win this round!'); }
+  else if(result&&result.winner==='O'){ roundOW++; snd('lose'); highlightWin(result.line); setStatus('o','Bot wins this round!'); }
+  else { roundTie++; setStatus('x','Draw!'); }
   updateScores();
-
-  // Best of 3: first to 2 wins
-  if(roundXW>=2 || roundOW>=2 || (roundXW+roundOW+roundTie)>=3){
-    setTimeout(function(){ endMatch(); },700);
-  } else {
-    document.getElementById('newRoundBtn').style.display='flex';
-  }
+  if(roundXW>=2||roundOW>=2||(roundXW+roundOW+roundTie)>=3){ setTimeout(endMatch,700); }
+  else { document.getElementById('newRoundBtn').style.display='flex'; }
 }
 
 function updateScores(){
@@ -883,28 +978,23 @@ function updateScores(){
 }
 
 function endMatch(){
-  var playerWon = roundXW>=2 || (roundXW>roundOW && (roundXW+roundOW+roundTie)>=3);
-  gameActive=false;
-  document.getElementById('newRoundBtn').style.display='none';
-
+  var playerWon=roundXW>=2||(roundXW>roundOW&&(roundXW+roundOW+roundTie)>=3);
+  gameActive=false; document.getElementById('newRoundBtn').style.display='none';
   if(playerWon){
     var w=Math.floor(betAmt*1.8);
-    S.balance+=w; S.wins++; S.totalEarned+=w;
-    S.winStreak=(S.winStreak||0)+1;
-    addTxn('Game Win (XO)',w,'in');
-    snd('win');
+    S.balance+=w; S.wins++; S.totalEarned+=w; S.winStreak=(S.winStreak||0)+1;
+    addTxn('Game Win (XO)',w,'in'); snd('win');
     document.getElementById('resE').textContent='🏆';
     document.getElementById('resT').textContent='You Won!';
-    document.getElementById('resA').textContent='+'+w;
+    document.getElementById('resA').textContent='+₹'+w;
     document.getElementById('resA').style.color='var(--gold)';
     document.getElementById('resS').textContent='Amount added to your wallet';
   } else {
     S.losses++; S.winStreak=0;
-    addTxn('Game Loss (XO)',betAmt,'out');
-    snd('lose');
+    addTxn('Game Loss (XO)',betAmt,'out'); snd('lose');
     document.getElementById('resE').textContent='😔';
     document.getElementById('resT').textContent='You Lost!';
-    document.getElementById('resA').textContent='-'+betAmt;
+    document.getElementById('resA').textContent='-₹'+betAmt;
     document.getElementById('resA').style.color='var(--red)';
     document.getElementById('resS').textContent='Better luck next time!';
   }
@@ -915,8 +1005,7 @@ function endMatch(){
 function playAgain(){
   document.getElementById('resOv').classList.remove('show');
   document.getElementById('resA').style.color='';
-  nav('homeScreen','home');
-  openBet(gameMode);
+  nav('homeScreen','home'); openBet(gameMode);
 }
 function goHome(){
   document.getElementById('resOv').classList.remove('show');
@@ -940,93 +1029,63 @@ var SEGS=[
   {l:'1',c:'#00838F',v:1},{l:'11',c:'#E53935',v:11}
 ];
 
-function initWheel(){
-  drawWheel(spinA); updSpinUI();
-}
+function initWheel(){ drawWheel(spinA); updSpinUI(); }
 
 function drawWheel(ang){
   var c=document.getElementById('spinCanvas'); if(!c) return;
-  var ctx=c.getContext('2d'), W=c.width, cx=W/2, cy=W/2, r=W/2-10;
+  var ctx=c.getContext('2d'),W=c.width,cx=W/2,cy=W/2,r=W/2-10;
   ctx.clearRect(0,0,W,W);
   var sa=(Math.PI*2)/SEGS.length;
   for(var i=0;i<SEGS.length;i++){
-    var seg=SEGS[i];
-    var a0=ang+i*sa-Math.PI/2, a1=a0+sa;
+    var seg=SEGS[i],a0=ang+i*sa-Math.PI/2,a1=a0+sa;
     ctx.beginPath(); ctx.moveTo(cx,cy); ctx.arc(cx,cy,r,a0,a1); ctx.closePath();
     ctx.fillStyle=seg.c; ctx.fill();
     ctx.strokeStyle='rgba(255,255,255,.3)'; ctx.lineWidth=1.5; ctx.stroke();
-    var ma=a0+sa/2, lx=cx+(r*.62)*Math.cos(ma), ly=cy+(r*.62)*Math.sin(ma);
+    var ma=a0+sa/2,lx=cx+(r*.62)*Math.cos(ma),ly=cy+(r*.62)*Math.sin(ma);
     ctx.save(); ctx.translate(lx,ly); ctx.rotate(ma+Math.PI/2);
     ctx.fillStyle='#fff'; ctx.font='bold '+(W*.065)+'px Nunito';
     ctx.textAlign='center'; ctx.textBaseline='middle';
-    ctx.fillText('\u20b9'+seg.l,0,0); ctx.restore();
+    ctx.fillText('₹'+seg.l,0,0); ctx.restore();
   }
   ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2);
   ctx.strokeStyle='#f5c518'; ctx.lineWidth=7; ctx.stroke();
   for(var i=0;i<18;i++){
-    var a=(i/18)*Math.PI*2, bx=cx+(r+1)*Math.cos(a), by=cy+(r+1)*Math.sin(a);
+    var a=(i/18)*Math.PI*2,bx=cx+(r+1)*Math.cos(a),by=cy+(r+1)*Math.sin(a);
     ctx.beginPath(); ctx.arc(bx,by,4.5,0,Math.PI*2);
     ctx.fillStyle=i%2===0?'#fff':'#f5c518'; ctx.fill();
   }
 }
 
 function updSpinUI(){
-  var today=new Date().toDateString(), can=S.lastSpin!==today;
-  var btn=document.getElementById('spinBtn'), dot=document.getElementById('spDot'), txt=document.getElementById('spTxt');
+  var today=new Date().toDateString(),can=S.lastSpin!==today;
+  var btn=document.getElementById('spinBtn'),dot=document.getElementById('spDot'),txt=document.getElementById('spTxt');
   if(can){ btn.disabled=false; btn.style.opacity='1'; dot.style.background='var(--green)'; txt.textContent='1 Spin Available'; }
   else { btn.disabled=true; btn.style.opacity='.5'; dot.style.background='#666'; txt.textContent='Come back tomorrow!'; }
 }
 
 function doSpin(){
   var today=new Date().toDateString();
-  if(S.lastSpin===today){ toast('Already spun today! Come back tomorrow.'); return; }
+  if(S.lastSpin===today){ toast('Already spun today!'); return; }
   if(spinning) return;
   spinning=true;
   var winV=Math.random()<.5?1:11;
   var tSeg=SEGS.findIndex(function(s){ return s.v===winV; });
-  var sa=(Math.PI*2)/SEGS.length;
-  var tA=-(tSeg*sa+sa/2);
+  var sa=(Math.PI*2)/SEGS.length,tA=-(tSeg*sa+sa/2);
   var full=(5+Math.floor(Math.random()*3))*(Math.PI*2);
   var finalA=spinA+full+(tA-spinA%(Math.PI*2));
-  var dur=4200, st=performance.now(), sa0=spinA;
+  var dur=4200,st=performance.now(),sa0=spinA;
   function ease(t){ return 1-Math.pow(1-t,4); }
   function anim(now){
     var t=Math.min((now-st)/dur,1);
-    spinA=sa0+(finalA-sa0)*ease(t);
-    drawWheel(spinA);
+    spinA=sa0+(finalA-sa0)*ease(t); drawWheel(spinA);
     if(t<1){ requestAnimationFrame(anim); }
     else {
       spinning=false; S.lastSpin=today; S.balance+=winV; S.totalEarned+=winV;
       S.missions.m3=true; addTxn('Spin Win',winV,'in'); save(); updBals(); updSpinUI();
-      snd('coin'); toast('You won '+winV+'!');
+      snd('coin'); toast('You won ₹'+winV+'!');
     }
   }
   requestAnimationFrame(anim);
-}
-
-// ═══════════════════════════════════════
-//  ADS
-// ═══════════════════════════════════════
-var MAX_ADS=50;
-
-function watchAd(){
-  chkDay();
-  if(S.adsToday>=MAX_ADS){ toast('No more ads available today!'); return; }
-  var ov=document.getElementById('adOv'); ov.classList.add('show');
-  var s=5; document.getElementById('adCnt').textContent=s;
-  document.getElementById('adFill').style.width='0%';
-  var iv=setInterval(function(){
-    s--; document.getElementById('adCnt').textContent=s;
-    document.getElementById('adFill').style.width=((5-s)/5*100)+'%';
-    if(s<=0){
-      clearInterval(iv); ov.classList.remove('show');
-      S.adsToday++; S.balance+=5; S.totalEarned+=5;
-      if(S.missions.m2<3) S.missions.m2++;
-      addTxn('Ad Reward',5,'in'); save(); updBals();
-      snd('coin'); toast('5 added to wallet!');
-      refEarn();
-    }
-  },1000);
 }
 
 // ═══════════════════════════════════════
@@ -1034,9 +1093,7 @@ function watchAd(){
 // ═══════════════════════════════════════
 var STREAK_R=[10,20,60,120,240,360,880,1000];
 
-function refEarn(){
-  chkDay(); renderStreak(); renderMissions(); renderAds();
-}
+function refEarn(){ chkDay(); renderStreak(); renderMissions(); renderAds(); }
 
 function renderStreak(){
   var g=document.getElementById('sgrid'); if(!g) return;
@@ -1044,17 +1101,17 @@ function renderStreak(){
   var labels=['Day 1','Day 2','Day 3','Day 4','Day 5','Day 6','Day 7','Day 8'];
   var html='';
   for(var i=0;i<STREAK_R.length;i++){
-    var cl='sd'; var ic='🔒';
+    var cl='sd',ic='🔒';
     if(i<streak){cl='sd done';ic='✅';}
     else if(i===streak){cl='sd cur';ic='🎁';}
     html+='<div class="'+cl+'"><div style="font-size:18px;">'+ic+'</div><div style="font-size:10px;color:var(--text2);font-weight:700;">'+labels[i]+'</div><div style="font-size:13px;font-weight:900;color:var(--gold);">'+STREAK_R[i]+'</div></div>';
   }
   g.innerHTML=html;
-  var btn=document.getElementById('sclaimBtn'), today=new Date().toDateString();
+  var btn=document.getElementById('sclaimBtn'),today=new Date().toDateString();
   var allM=S.missions.m1&&S.missions.m2>=3&&S.missions.m3;
   if(S.streakLastClaim===today){ btn.textContent='Claimed Today'; btn.disabled=true; btn.style.opacity='.6'; }
   else if(!allM){ btn.textContent='Complete Missions First'; btn.disabled=true; btn.style.opacity='.6'; }
-  else { btn.textContent='Claim '+(STREAK_R[streak]||10); btn.disabled=false; btn.style.opacity='1'; }
+  else { btn.textContent='Claim ₹'+(STREAK_R[streak]||10); btn.disabled=false; btn.style.opacity='1'; }
 }
 
 function renderMissions(){
@@ -1072,10 +1129,10 @@ function renderAds(){
   var rem=Math.max(0,MAX_ADS-S.adsToday);
   document.getElementById('aCnt').textContent=rem+'/'+MAX_ADS;
   document.getElementById('aProg').style.width=(rem/MAX_ADS*100)+'%';
-  var html='', titles=['Watch Ad & Earn 5','Watch Video & Get 5','View Ad & Claim 5','Ad Reward — Earn 5'];
+  var html='',titles=['Watch Ad & Earn ₹5','Watch Video & Get ₹5','View Ad & Claim ₹5','Ad Reward — Earn ₹5'];
   for(var i=0;i<4;i++){
     var ok=rem>0;
-    html+='<div class="adrow"><div class="adplay" onclick="'+(ok?'watchAd()':'toast(\'No ads!\')') +'" style="'+(ok?'':'opacity:.4')+'">▶️</div><div style="flex:1;"><div style="font-size:13px;font-weight:800;">'+titles[i%4]+'</div><div style="font-size:11px;color:var(--text2);margin-top:2px;">Watch complete ad to claim ₹5 reward</div></div><button class="claimb" onclick="'+(ok?'watchAd()':'')+'" '+(ok?'':'disabled')+'>Claim<br>₹5</button></div>';
+    html+='<div class="adrow"><div class="adplay" onclick="'+(ok?'watchAd()':'toast(\'No ads!\')')+'" style="'+(ok?'':'opacity:.4')+'">▶️</div><div style="flex:1;"><div style="font-size:13px;font-weight:800;">'+titles[i%4]+'</div><div style="font-size:11px;color:var(--text2);margin-top:2px;">Watch complete ad to claim ₹5 reward</div></div><button class="claimb" onclick="'+(ok?'watchAd()':'')+'" '+(ok?'':'disabled')+'>Claim<br>₹5</button></div>';
   }
   document.getElementById('adsList').innerHTML=html;
 }
@@ -1091,10 +1148,10 @@ function claimStreak(){
   if(S.streakLastClaim===yest){ S.streakDay=Math.min(S.streakDay+1,STREAK_R.length-1); }
   else if(!S.streakLastClaim){ S.streakDay=1; }
   else { S.streakDay=0; toast('Streak broken! Reset to Day 1'); }
-  if(S.streakDay>=STREAK_R.length){ S.streakDay=0; }
+  if(S.streakDay>=STREAK_R.length) S.streakDay=0;
   S.streakLastClaim=today;
   addTxn('Streak Reward',r,'in'); save(); updBals(); snd('win');
-  toast(''+r+' streak reward claimed!'); refEarn();
+  toast('₹'+r+' streak reward claimed!'); refEarn();
 }
 
 // ═══════════════════════════════════════
@@ -1106,8 +1163,7 @@ function renderTxns(){
   var l=document.getElementById('txList'); if(!l) return;
   var txns=S.txns||[];
   if(!txns.length){ l.innerHTML='<div style="text-align:center;padding:28px;color:var(--text2);">No transactions yet</div>'; return; }
-  var html='';
-  var list=txns.slice().reverse().slice(0,25);
+  var html='',list=txns.slice().reverse().slice(0,25);
   for(var i=0;i<list.length;i++){
     var t=list[i];
     html+='<div class="txr"><div class="txic" style="background:'+(t.type==='in'?'rgba(46,204,113,.15)':'rgba(231,76,60,.15)')+'">'+(t.type==='in'?'💰':'💸')+'</div><div style="flex:1;"><div style="font-size:13px;font-weight:800;">'+t.label+'</div><div style="font-size:11px;color:var(--text2);margin-top:2px;">'+t.date+'</div></div><div style="font-size:14px;font-weight:900;color:'+(t.type==='in'?'var(--green)':'var(--red)')+';">'+(t.type==='in'?'+':'-')+'₹'+Math.floor(t.amount)+'</div></div>';
@@ -1121,13 +1177,12 @@ function doWithdraw(){
   var u=document.getElementById('wU').value.trim();
   var a=parseFloat(document.getElementById('wA').value);
   if(!n||!m||!u){ toast('Fill all fields'); return; }
-  if(isNaN(a)||a<1000){ toast('Min withdrawal 1000'); return; }
-  if(S.balance<1000){ toast('Need '+(1000-S.balance).toFixed(0)+' more'); return; }
+  if(isNaN(a)||a<1000){ toast('Min withdrawal ₹1000'); return; }
+  if(S.balance<1000){ toast('Need ₹'+(1000-S.balance).toFixed(0)+' more'); return; }
   if(S.balance<a){ toast('Insufficient balance'); return; }
   S.balance-=a; addTxn('UPI Withdrawal',a,'out'); save(); updBals();
   toast('Withdrawal submitted! Processing in 24hrs');
-  document.getElementById('wN').value=''; document.getElementById('wM').value='';
-  document.getElementById('wU').value=''; document.getElementById('wA').value='';
+  ['wN','wM','wU','wA'].forEach(function(id){ document.getElementById(id).value=''; });
   renderTxns();
 }
 
@@ -1139,7 +1194,7 @@ function refProfile(){
   document.getElementById('prStreak').textContent=(S.streakDay||0)+' Day Streak';
   document.getElementById('stGames').textContent=S.gamesPlayed||0;
   document.getElementById('stWins').textContent=S.wins||0;
-  document.getElementById('stEarn').textContent=Math.floor(S.totalEarned||0);
+  document.getElementById('stEarn').textContent='₹'+Math.floor(S.totalEarned||0);
 }
 
 function invFriend(){
